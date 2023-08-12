@@ -17,9 +17,17 @@ const productSchema=new mongoose.Schema({
         type:String,
         required: [true, "Please enter a description"],
     },
-    category:{
+    mainCategory:{
         type:String,
         required: [true, "Please enter a category"],
+    },
+    subCategory:{
+        type:String,
+        required: [true, "Please enter a category"],
+    },
+    rating:{
+        type:Number,
+        default:0,
     },
 
 })
