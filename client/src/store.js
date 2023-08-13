@@ -5,7 +5,10 @@ import { userReducer } from './Reducers/userReducer';
 const initialState = {}
 
 const store = configureStore({
-   reducer:{userReducer},
+   reducer:{
+    user: userReducer,
+
+   },
     preloadedState: initialState
 });
 

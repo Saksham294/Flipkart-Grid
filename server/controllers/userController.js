@@ -1,4 +1,4 @@
-const User = require("../models/userModel")
+const User = require("../models/User")
 const cloudinary = require("cloudinary")
 
 exports.registerUser = async (req, res) => {
@@ -118,6 +118,3 @@ exports.getMyProfile = async (req, res) => {
     });
   }
 }
-
-
-

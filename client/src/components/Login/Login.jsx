@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import './Login.css'
+import CircularProgress from '@mui/material/CircularProgress';
 import { Button, Grid, Link, Paper, Typography } from '@mui/material'
 import { TextField } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -8,8 +9,8 @@ import { loginUser } from '../../Actions/userActions'
 import { Alert } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import Loader from '../Loader/Loader'
+import { useParams } from "react-router-dom";
 import { Stack } from '@mui/system';
-
 
 function Login() {
     const theme = createTheme({
@@ -22,7 +23,7 @@ function Login() {
                 darker: '#053e85',
             },
             neutral: {
-                main: '#087cfc',
+                main: '#08d4a4',
                 contrastText: '#fff',
             },
         },
@@ -119,7 +120,6 @@ function Login() {
                 <ThemeProvider theme={theme}>
                     <Typography mt={1}><Link underline="hover" color="#42a5f5">Forgot Password?</Link></Typography>
                     <Typography ml={13} mt={10}>Don't have an account? <Link href='/register' color="#42a5f5" underline="hover">Sign Up</Link></Typography>
-                    <Typography ml={14} mt={0}>Are you a doctor? <Link href='/doctor/login' color="#42a5f5" underline="hover">Login here</Link></Typography>
                 </ThemeProvider>
             </Paper>
 

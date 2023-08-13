@@ -18,7 +18,7 @@ function Register() {
         darker: '#053e85',
       },
       neutral: {
-        main: '#087cfc',
+        main: '#08d4a4',
         contrastText: '#fff',
       },
     },
@@ -67,8 +67,8 @@ function Register() {
               alt="User"
               sx={{ height: "10vmax", width: "10vmax", marginLeft: "10rem" }}
             />
-            <input className='imageInputs' type="file" accept="image/*" onChange={handleImageChange} />
-
+            <input className='imageInputs' id='fileChoose' type="file" accept="image/*" onChange={handleImageChange} />
+            {/* <label for='fileChoose' className='imageInputs'>Choose Image</label> */}
 
             <input type="text" value={name} placeholder="Name"
               className='inputs'

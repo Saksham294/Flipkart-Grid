@@ -2,14 +2,12 @@
     width: 110%;
     height: 70vh;
     margin-top: 6.2rem;
-
 }
 
 .servicesContainer {
-
     display: flex;
     flex-wrap: wrap;
-    padding-left:0.5vw;
+    padding-left: 0.5vw;
     padding-top: 5rem;
     padding-bottom: 5rem;
 }
@@ -20,5 +18,50 @@
     font-size: 13rem;
     font-family: "Momcake";
     color: #6d35de;
+}
 
+.homeSection {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: row;
+    font-family: 'Lato';
+    font-weight: 500;
+    font-size: 3vw;
+    height: 40vw;
+    width: 100%;
+}
+/* .homeDiv1{
+    border: 2px solid blue;
+}
+.homeDiv2{
+    border: 2px solid black;
+    height: 200px;
+} */
+
+.homeText {
+    margin: 4rem;
+    height: 30vw;
+    background-color: #ffffff;
+    color: #161C10;
+    border-radius: 15px 15px 5px 5px;
+    /* border: 2px solid red; */
+}
+
+.homeText>h3{
+    padding-top: 8vw;
+    margin-left: 2rem;
+    font-size:4vw;
+    font-family: "Lato";
+}
+
+.homeText>h5{
+    margin-left: 2.5rem;
+    margin-top: 1vw;
+    font-size:2vw;
+    color: #009dff;
+    font-family: "Montserrat";
+}
+
+.homeText>button{
+    background-color: #08d4a4;
 }

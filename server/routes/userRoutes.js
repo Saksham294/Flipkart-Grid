@@ -5,7 +5,7 @@ const { registerUser,
    } = require("../controllers/userController")
 const express = require("express")
 const router = express.Router();
-const isAuthenticated = require("../middlewares/auth")
+const isAuthenticated = require("../middleware/auth")
 
 
 router.route('/register').post(registerUser)

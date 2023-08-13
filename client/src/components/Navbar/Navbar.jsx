@@ -10,7 +10,7 @@ import MenuBar from './MenuBar';
 
 const Navbar = () => {
 
-    // const { isAuthenticated } = useSelector((state) => state.user);
+    const { isAuthenticated } = useSelector((state) => state.user);
     return (
         <div className='navMain'>
 
@@ -18,10 +18,10 @@ const Navbar = () => {
       
     <Link to='/'>  <div className="home">Home</div></Link>  
 
-       <Link to='/aboutus'><div className="about-us">About Us</div></Link>  
+       <Link to='/allProducts'><div className="about-us">Explore</div></Link>  
         </div>
-        {/* {isAuthenticated?<MenuBar className='menuBar'/>:} */}
-        <div className="login"><Link className='link' to="/login" style={{ textDecoration: 'none' }}>Login</Link></div>
+        {isAuthenticated?<MenuBar className='menuBar'/>:  <div className="login"><Link className='link' to="/login" style={{ textDecoration: 'none' }}>Login</Link></div>}
+      
         
      </div>
     )

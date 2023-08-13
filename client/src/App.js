@@ -1,12 +1,22 @@
 import './App.css';
 import React,{useEffect} from 'react';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
+import { loadUser,loadDoctor } from './Actions/userActions';
+import { useSelector,useDispatch } from 'react-redux';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
 import Register from './components/Register/Register';
+import Footer from './components/Footer/Footer';
+import ProductPage from './components/ProductPage/ProductPage';
 
 function App() {
+  const dispatch = useDispatch();
+  const {isAuthenticated} = useSelector(state => state.user)
+  useEffect(()=>{
+    dispatch(loadUser())
+   
+  },[dispatch])
   return (
     <div className="App">
 
@@ -23,13 +33,20 @@ function App() {
           <Route path='/music' element={<MusicPage/>}/>
           <Route path='/articles' element={<ArticlesPage/>}/>
           <Route path='/exercises' element={<Exercises/>}/> */}
-          <Route path='/login' element={<Login/>}/>
-          {/* <Route path='/register' element={isAuthenticated?<Home/>:<Register/>}/> */}
+          <Route path='/login' element={isAuthenticated?<Home/>:<Login/>}/>
+          <Route path='/register' element={isAuthenticated?<Home/>:<Register/>}/>
+          <Route path='/allProducts' element={<ProductPage/>}/>
         </Routes>
       </Router>
-
+          <Footer/>
     </div>
   );
 }
 
 export default App;
+
+/**
+ * 
+ * Search
+ * Categories Filter
+ */
