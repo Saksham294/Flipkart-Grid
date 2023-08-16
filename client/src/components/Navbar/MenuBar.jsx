@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route, Link } from "react-router-dom";
-import {useSelector,useDispatch} from 'react-redux'
-import {AiOutlinePlus} from '@react-icons/all-files/ai/AiOutlinePlus'
+import { useSelector, useDispatch } from 'react-redux'
+import { AiOutlinePlus } from '@react-icons/all-files/ai/AiOutlinePlus'
 import './Navbar.css'
 import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
@@ -21,47 +22,47 @@ import './MenuBar.css'
 
 const MenuBar = () => {
 
-  const {user,loading:userLoading}=useSelector((state)=>state.user)
-  let userImage="";
+  const { user, loading: userLoading } = useSelector((state) => state.user)
+  let userImage = "";
 
-  if(user!=undefined && user.avatar!=undefined){
-       userImage=user.avatar.url;
+  if (user != undefined && user.avatar != undefined) {
+    userImage = user.avatar.url;
   }
-  
-    const dispatch=useDispatch();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
+
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
 
 
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    const logoutHandler=()=>{
-        if(user){
-          dispatch(logoutUser())
-        console.log("Logged out")
-        }
-            }
-        
-    return (
-        <div>
-            <Tooltip title="Account settings" >
-          <IconButton 
-            onClick={handleClick}
-            size="small"
-            sx={{ ml:"40px",mt:"25px" }}
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
-            {userImage!=undefined? <Avatar   sx={{ width: 32, height: 32 }} src={userImage}/>:  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> }
-          
-          </IconButton>
-        </Tooltip>
-        <Menu
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const logoutHandler = () => {
+    if (user) {
+      dispatch(logoutUser())
+      console.log("Logged out")
+    }
+  }
+
+  return (
+    <div>
+      <Tooltip title="Account settings" >
+        <IconButton
+          onClick={handleClick}
+          size="small"
+          sx={{ ml: "40px", mt: "25px" }}
+          aria-controls={open ? 'account-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+        >
+          {userImage != undefined ? <Avatar sx={{ width: 32, height: 32 }} src={userImage} /> : <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>}
+
+        </IconButton>
+      </Tooltip>
+      <Menu
 
         anchorEl={anchorEl}
         id="account-menu"
@@ -97,15 +98,23 @@ const MenuBar = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <Link to='/myPurchases'>
+          <MenuItem>
+          <ShoppingBagIcon fontSize='small'></ShoppingBagIcon>
+            My Purchases
+          </MenuItem>
+        </Link>
+        <hr></hr>
         <MenuItem onClick={logoutHandler}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout
         </MenuItem>
+
       </Menu>
-        </div>
-    )
+    </div>
+  )
 }
 
 export default MenuBar

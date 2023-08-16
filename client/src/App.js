@@ -9,6 +9,7 @@ import Navbar from './components/Navbar/Navbar';
 import Register from './components/Register/Register';
 import Footer from './components/Footer/Footer';
 import ProductPage from './components/ProductPage/ProductPage';
+import AllProductsPage from './components/AllProductsPage/AllProductsPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,8 +26,6 @@ function App() {
     
         <Routes>
           <Route path="/" element={<Home/>}/>
-
-
           {/* <Route path="/community" element={<Community/>}/>
        
           <Route path='/doctors' element={<DoctorsPage/>}/> 
@@ -35,7 +34,8 @@ function App() {
           <Route path='/exercises' element={<Exercises/>}/> */}
           <Route path='/login' element={isAuthenticated?<Home/>:<Login/>}/>
           <Route path='/register' element={isAuthenticated?<Home/>:<Register/>}/>
-          <Route path='/allProducts' element={<ProductPage/>}/>
+          <Route path='/allProducts' element={<AllProductsPage/>}/>
+          <Route path='/product' element={<ProductPage/>}/>
         </Routes>
       </Router>
           <Footer/>
@@ -47,6 +47,7 @@ export default App;
 
 /**
  * 
- * Search
  * Categories Filter
+ * Buy product page for each prod
+ * Send userId of all those who have bought the prod to backend
  */

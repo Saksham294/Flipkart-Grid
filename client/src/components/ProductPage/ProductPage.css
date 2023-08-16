@@ -1,38 +1,45 @@
-.allProductsContainer{
+.productPageBox{
+    height: 40vw;
     /* border: 2px solid red; */
-    height: 100vw;
     display: flex;
 }
 
-.categoriesContainer{
+.productInfo{
     /* border: 2px solid blue; */
-    width: 20vw;
-    margin-left: 2vw;
-    margin: 5vw;
+    width: 50vw;
+    padding-top: 10vw;
 }
 
-.productsDisplay{
-    /* border: 2px solid green; */
-    width: 65vw;
-    margin-top: 5vw;
-}
-
-.productPage{
-    /* border: 2px solid black; */
-}
-
-.productPage>h3{
+.productInfo>h4{
     font-family: "Montserrat";
-    font-size: 5vw;
+    font-size: 3vw;
     text-align: center;
-    margin-top: 10vw;
+    margin-top: 1vw;
     margin-bottom: 1vw;
 }
 
-.categories>h5{
+.productInfo>h6{
     font-family: "Montserrat";
     font-size: 2vw;
     text-align: center;
     margin-top: 1vw;
     margin-bottom: 1vw;
+}
+
+.productImages{
+    /* border: 2px solid green; */
+    width: 50vw;
+}
+
+.description{
+    /* border: 2px solid black; */
+    width: 50vw;
+    height: 15vw;
+    margin: 1vw;
+    padding: 1vw;
+}
+
+.description>h6{
+    font-weight: 250;
+    font-family: "Montserrat";
 }

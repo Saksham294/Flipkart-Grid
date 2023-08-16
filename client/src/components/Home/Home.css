@@ -30,6 +30,12 @@
     height: 40vw;
     width: 100%;
 }
+
+.homeSection>img {
+
+    height: 44vw;
+}
+
 /* .homeDiv1{
     border: 2px solid blue;
 }
@@ -47,21 +53,61 @@
     /* border: 2px solid red; */
 }
 
-.homeText>h3{
+.homeText>h3 {
     padding-top: 8vw;
     margin-left: 2rem;
-    font-size:4vw;
+    font-size: 4vw;
     font-family: "Lato";
+
 }
 
-.homeText>h5{
-    margin-left: 2.5rem;
+.homeText>h5 {
+    margin-left: 2rem;
     margin-top: 1vw;
-    font-size:2vw;
+    font-size: 2vw;
     color: #009dff;
     font-family: "Montserrat";
 }
 
-.homeText>button{
+.homeText>button {
     background-color: #08d4a4;
+
 }
+
+.homeSection2{
+    margin-top: 3vw;
+    width: 100%;
+    height: 40vw;
+    position: relative;
+    background: url(https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60);
+    background-size: cover;
+    overflow: hidden;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0,0,0,0.5);
+}
+
+.overlay>h3{
+    color: white;
+    font-family: 'Montserrat';
+    font-size: 4.5vw;
+    font-weight: 200;
+    position: absolute;
+    top: 150px;
+    left: 175px;
+}
+
+.fashionImg{
+    height: 40vw;
+}
+
+.fashionGuyImg{
+    height: 40vw;
+}
+

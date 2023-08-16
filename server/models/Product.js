@@ -32,6 +32,11 @@ const productSchema=new mongoose.Schema({
         default:0,
     },
 
+    boughtBy:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }]
+
 })
 
 module.exports=mongoose.model("Product",productSchema)

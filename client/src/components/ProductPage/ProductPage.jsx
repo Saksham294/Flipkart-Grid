@@ -1,35 +1,52 @@
 import React from 'react'
 import './ProductPage.css'
-import ProductCard from '../ProductCard/ProductCard'
 import { Typography } from '@mui/material'
+import { Button } from '@mui/material'
+import Star from '../Star/Star'
 
-const ProductPage = () => {
+const ProductPage = ({ productId, price, description, rating,image }) => {
     return (
-        <div className="productPage">
-            <Typography variant='h3'>Explore, Shop, Enjoy it All!</Typography>
-            <div className='allProductsContainer'>
-                <div className="categoriesContainer">
-                    <div className="categories">
-                        <Typography variant='h5'>Categories</Typography>
-                    </div>
-
-                </div>
-                <div className="productsDisplay">
-                    <ProductCard />  <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard
-                        heading='Wooden Chair'
-                        subheading='The best chair you can get'
-                        img='https://images.unsplash.com/photo-1443884590026-2e4d21aee71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1443&q=80'
-                        url='/mentor'
-                        price='5000'
-                    />
-                </div>
+     <>
+        <div className='productPageBox'>
+            <div className="productImages">
+                <img src={image} alt="" />
             </div>
+            <div className="productInfo">
+                <Typography variant='h4'>Product Name</Typography>
+                <Star stars={4}></Star>
+                <Typography variant='h6'>₹ 5000</Typography>
+                <Button variant='contained' color='primary' sx={{
+                    backgroundColor: "#08d4a4",
+                    fontSize: "1vw",
+                    paddingRight: "8vw",
+                    paddingLeft: "8vw",
+                    paddingTop: "1vw",
+                    paddingBottom: "1vw",
+                    borderRadius: "1.5vw",
+                    marginTop: "2vw",
+                    marginLeft: "14.5vw"
+
+                }}>Buy Now</Button>
+            </div>
+            {
+                /**
+                 * 
+                 * Name
+                 * Price
+                 * Buy Now Button
+                 * Description
+                 * Rating
+                 * Rate yourself
+                 */
+            }
         </div>
+        <div className="description">
+            <Typography variant='h5'>Description</Typography>
+            <Typography variant='h6'>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt quisquam quae ad voluptatibus incidunt! Dolorum obcaecati veniam dolorem voluptates modi, quas, nihil quaerat architecto ipsam alias quis qui exercitationem cum?
+            </Typography>
+        </div>
+     </>
     )
 }
 
