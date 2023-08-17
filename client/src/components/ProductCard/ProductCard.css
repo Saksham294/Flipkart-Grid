@@ -10,6 +10,10 @@ a{
     margin: 1rem;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     transition: transform 0.3s ease-in-out;
+    /* border: 2px solid red; */
+    height: 460px; /* Set a fixed height */
+    overflow: hidden; 
+
 }
 
 .productContainer:hover {
@@ -26,22 +30,32 @@ a{
 
 .productText {
     width: 250px;
+  
 }
 
+.productParaText{
+    font-family: "Montserrat";
+    font-size: 1rem;
+    color: #6a6a6a;
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
 .productContainer>.productText>h5 {
     font-family: "Roboto";
     font-size: 1.75rem;
     padding-left: 1rem;
     margin-top: 1rem;
     font-weight: 400;
-}
-
-.productContainer>.productText>p {
-    font-family: "Montserrat";
-    font-size: 1rem;
-    color: #6a6a6a;
-    margin-left: 1rem;
-    margin-bottom: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .productContainer>.productText>h6 {
@@ -49,5 +63,4 @@ a{
     font-size: 1.5rem;
     margin-left: 1rem;
     margin-bottom: 1rem;
-
 }

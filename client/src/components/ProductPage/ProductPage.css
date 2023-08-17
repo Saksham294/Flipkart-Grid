@@ -26,9 +26,11 @@
     margin-bottom: 1vw;
 }
 
-.productImages{
+.productImages>img{
     /* border: 2px solid green; */
     width: 50vw;
+    height: 40vw;
+    margin: 2vw;
 }
 
 .description{

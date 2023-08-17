@@ -2,9 +2,17 @@ import React from 'react'
 import './AllProductsPage.css'
 import ProductCard from '../ProductCard/ProductCard'
 import { Typography } from '@mui/material'
+import { useSelector, useDispatch } from 'react-redux'
 
 const AllProductsPage = () => {
-    return (
+    const dispatch = useDispatch()
+    let prods = [];
+    let { loading, products } = useSelector(state => state.products)
+    if (products) {
+        prods = products;
+    }
+    console.log(prods)
+    return prods.length > 0 ? (
         <div className="productPage">
             <Typography variant='h3'>Explore, Shop, Enjoy it All!</Typography>
             <div className='allProductsContainer'>
@@ -15,22 +23,30 @@ const AllProductsPage = () => {
 
                 </div>
                 <div className="productsDisplay">
-                    <ProductCard />  <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                    {prods.map((item, index) =>
+
+                    (
+                        <ProductCard
+                            heading={item.name}
+                            subheading={item.description}
+                            img={item.image.url}
+                            price={item.price}
+                            url={item._id}
+                        />
+
+                    ))}
                     <ProductCard
                         heading='Wooden Chair'
-                        subheading='The best chair you can get'
-                        img='https://images.unsplash.com/photo-1443884590026-2e4d21aee71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1443&q=80'
+                        subheading='The best chair you can get loremajksdnasjkndioasndoiasndioasjdioasjdioasndkajsdn asidasiodnasoidjioasjdaiosdj'
+                        img='https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGdhbWluZyUyMGNvbnNvbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60'
                         url='/mentor'
                         price='5000'
+                       
                     />
                 </div>
             </div>
         </div>
-    )
+    ) : null
 }
 
 export default AllProductsPage

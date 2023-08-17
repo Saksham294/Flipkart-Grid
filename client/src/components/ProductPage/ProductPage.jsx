@@ -1,20 +1,32 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import './ProductPage.css'
 import { Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { Button } from '@mui/material'
+import { getProduct } from '../../Actions/productActions'
 import Star from '../Star/Star'
 
 const ProductPage = ({ productId, price, description, rating,image }) => {
-    return (
+    const { id } = useParams()
+    console.log(id)
+    const dispatch = useDispatch()
+    const { product, loading } = useSelector(state => state.products)
+    console.log(product)
+    useEffect(() => {
+        dispatch(getProduct(id))
+    }, [])
+
+    return loading === undefined || loading === true ? null : (
      <>
         <div className='productPageBox'>
             <div className="productImages">
-                <img src={image} alt="" />
+                <img src={product.image.url} alt="" />
             </div>
             <div className="productInfo">
-                <Typography variant='h4'>Product Name</Typography>
+                <Typography variant='h4'>{product.name}</Typography>
                 <Star stars={4}></Star>
-                <Typography variant='h6'>₹ 5000</Typography>
+                <Typography variant='h6'>₹ {product.price}</Typography>
                 <Button variant='contained' color='primary' sx={{
                     backgroundColor: "#08d4a4",
                     fontSize: "1vw",
@@ -43,7 +55,7 @@ const ProductPage = ({ productId, price, description, rating,image }) => {
         <div className="description">
             <Typography variant='h5'>Description</Typography>
             <Typography variant='h6'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt quisquam quae ad voluptatibus incidunt! Dolorum obcaecati veniam dolorem voluptates modi, quas, nihil quaerat architecto ipsam alias quis qui exercitationem cum?
+                {product.description}
             </Typography>
         </div>
      </>
