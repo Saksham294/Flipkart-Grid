@@ -45,7 +45,7 @@ a{
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
-.productContainer>.productText>h5 {
+.productContainer>a>.productText>h5 {
     font-family: "Roboto";
     font-size: 1.75rem;
     padding-left: 1rem;
@@ -58,7 +58,7 @@ a{
     -webkit-box-orient: vertical;
 }
 
-.productContainer>.productText>h6 {
+.productContainer>a>.productText>h6 {
     font-family: "Montserrat";
     font-size: 1.5rem;
     margin-left: 1rem;

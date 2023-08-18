@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Button } from '@mui/material'
-import { getProduct } from '../../Actions/productActions'
+import { getProduct,purchaseProduct } from '../../Actions/productActions'
 import Star from '../Star/Star'
 
 const ProductPage = ({ productId, price, description, rating,image }) => {
@@ -17,6 +17,10 @@ const ProductPage = ({ productId, price, description, rating,image }) => {
         dispatch(getProduct(id))
     }, [])
 
+    const buyHandler = () => {
+        dispatch(purchaseProduct(id))
+    }
+
     return loading === undefined || loading === true ? null : (
      <>
         <div className='productPageBox'>
@@ -27,7 +31,7 @@ const ProductPage = ({ productId, price, description, rating,image }) => {
                 <Typography variant='h4'>{product.name}</Typography>
                 <Star stars={4}></Star>
                 <Typography variant='h6'>₹ {product.price}</Typography>
-                <Button variant='contained' color='primary' sx={{
+                <Button onClick={buyHandler} variant='contained' color='primary' sx={{
                     backgroundColor: "#08d4a4",
                     fontSize: "1vw",
                     paddingRight: "8vw",

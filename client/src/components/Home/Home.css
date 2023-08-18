@@ -130,6 +130,12 @@
 
 .homeandFurniture {
     display: flex;
-    width: 14vw;
     height: 16vw;
+    width: 10vw;
+}
+
+.homeDecor>h3{
+    padding: 5vw;
+    text-align: center;
+    font-family: 'Montserrat';
 }

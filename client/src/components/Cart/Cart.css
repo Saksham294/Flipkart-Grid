@@ -1,0 +1,9 @@
+.cartItems{
+
+    display: inline-block;
+    margin: 1vw;
+    margin-left: 3vw;
+}
+.cartContainer>h2{
+    margin: 5vw;
+}

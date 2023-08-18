@@ -28,3 +28,18 @@ export const getAllProductsReducer = createReducer(initialState, {
         state.error = action.payload;
     }
 })
+
+export const productOperationsReducer = createReducer(initialState, {
+      purchaseProductRequest:(state, action) => {
+        state.loading = true;
+
+      },
+      purchaseProductSuccess:(state, action) => {
+        state.loading = false;
+        state.message = action.payload;
+      },
+      purchaseProductFailure:(state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      },
+})

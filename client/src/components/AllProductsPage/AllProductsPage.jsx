@@ -35,14 +35,6 @@ const AllProductsPage = () => {
                         />
 
                     ))}
-                    <ProductCard
-                        heading='Wooden Chair'
-                        subheading='The best chair you can get loremajksdnasjkndioasndoiasndioasjdioasjdioasndkajsdn asidasiodnasoidjioasjdaiosdj'
-                        img='https://images.unsplash.com/photo-1531525645387-7f14be1bdbbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGdhbWluZyUyMGNvbnNvbGV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60'
-                        url='/mentor'
-                        price='5000'
-                       
-                    />
                 </div>
             </div>
         </div>

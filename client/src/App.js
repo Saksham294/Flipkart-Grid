@@ -11,16 +11,28 @@ import Footer from './components/Footer/Footer';
 import ProductPage from './components/ProductPage/ProductPage';
 import AllProductsPage from './components/AllProductsPage/AllProductsPage';
 import { getAllProducts } from './Actions/productActions';
+import { getCartItems } from './Actions/productActions';
+import MyPurchases from './components/MyPurchases/MyPurchases';
+import Cart from './components/Cart/Cart';
 
 function App() {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector(state => state.user)
-  useEffect(() => {
-    dispatch(loadUser())
-    dispatch(getAllProducts())
+  const { isAuthenticated, loading, user } = useSelector(state => state.user);
 
-  }, [dispatch])
-  return (
+  let userId = "";
+  if (user && user._id) {
+    userId = user._id;
+  }
+
+  useEffect(() => {
+    dispatch(loadUser());
+    dispatch(getAllProducts());
+
+    if (userId) {
+      dispatch(getCartItems(userId));
+    }
+  }, [dispatch, userId]);
+  return loading==undefined|| loading==true?null :(
     <div className="App">
 
       <Router>
@@ -28,21 +40,17 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/community" element={<Community/>}/>
-       
-          <Route path='/doctors' element={<DoctorsPage/>}/> 
-          <Route path='/music' element={<MusicPage/>}/>
-          <Route path='/articles' element={<ArticlesPage/>}/>
-          <Route path='/exercises' element={<Exercises/>}/> */}
           <Route path='/login' element={isAuthenticated ? <Home /> : <Login />} />
           <Route path='/register' element={isAuthenticated ? <Home /> : <Register />} />
           <Route path='/allProducts' element={<AllProductsPage />} />
           <Route path='/product/:id' element={<ProductPage />} />
+          <Route path='/cart' element={isAuthenticated? <Cart/>:<Login/>}/>
+          <Route path='/myPurchases' element={<MyPurchases/>}/>
         </Routes>
       </Router>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
-  );
+  )
 }
 
 export default App;
