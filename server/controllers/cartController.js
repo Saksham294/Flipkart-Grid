@@ -35,7 +35,7 @@ exports.add_cart_item = async (req, res) => {
         const name = item.name;
         let boughtBy = [];
         let brand = [];
-        let subCat = [];
+        let subCategory = [];
 
         if (item.boughtBy!=undefined) {
             boughtBy = item.boughtBy;
@@ -46,7 +46,7 @@ exports.add_cart_item = async (req, res) => {
         }
 
         if (item.subCategory) {
-            subCat.push(item.subCategory);
+            subCategory.push(item.subCategory);
         }
         if (cart) {
             // if cart exists for the user
@@ -57,7 +57,7 @@ exports.add_cart_item = async (req, res) => {
                 let productItem = cart.items[itemIndex];
                 cart.items[itemIndex] = productItem;
             } else {
-                cart.items.push({ productId, name, boughtBy, brand, subCat });
+                cart.items.push({ productId, name, boughtBy, brand, subCategory  });
             }
             cart = await cart.save();
             return res.status(200).json({
