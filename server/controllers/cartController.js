@@ -22,57 +22,68 @@ exports.get_cart_items = async (req,res) => {
     }
 }
 
-exports.add_cart_item = async (req,res) => {
+exports.add_cart_item = async (req, res) => {
     const userId = req.params.id;
     const { productId } = req.body;
-    try{
-        let cart = await Cart.findOne({userId});
-        let item = await Product.findOne({_id: productId});
-        if(!item){
-            res.status(404).send('Item not found!')
+    try {
+        let cart = await Cart.findOne({ userId });
+        let item = await Product.findOne({ _id: productId });
+        if (!item) {
+            return res.status(404).send('Item not found!');
         }
+
         const name = item.name;
-        if(cart){
+        let boughtBy = [];
+        let brand = [];
+        let subCat = [];
+
+        if (item.boughtBy!=undefined) {
+            boughtBy = item.boughtBy;
+        }
+
+        if (item.brand) {
+            brand.push(item.brand);
+        }
+
+        if (item.subCategory) {
+            subCat.push(item.subCategory);
+        }
+        if (cart) {
             // if cart exists for the user
             let itemIndex = cart.items.findIndex(p => p.productId == productId);
 
             // Check if product exists or not
-            if(itemIndex > -1)
-            {
+            if (itemIndex > -1) {
                 let productItem = cart.items[itemIndex];
                 cart.items[itemIndex] = productItem;
-            }
-            else {
-                cart.items.push({ productId, name });
+            } else {
+                cart.items.push({ productId, name, boughtBy, brand, subCat });
             }
             cart = await cart.save();
-            return res.status(200).json(
-                {
-                    cart,
-                    message: "Item added to cart successfully"
-                
-                });
-        }
-       
-        else{
+            return res.status(200).json({
+                cart,
+                message: "Item added to cart successfully"
+            });
+        } else {
             // no cart exists, create one
             const newCart = await Cart.create({
                 userId,
-                items: [{ productId, name }],
+                items: [{  }],
             });
-            return res.status(201).send(newCart);
-        }       
-    }
-    catch (err) {
+            console.log(newCart);
+            return res.status(201).json({newCart, message: "Item added to cart successfully"});
+        }
+    } catch (err) {
         console.log(err);
         res.status(500).send("Something went wrong");
     }
-}
+};
+
 
 exports.delete_item = async (req, res) => {
     const userId = req.params.id;
     const prodId = req.params.productId;
-    console.log(userId,prodId)
+
     try {
         let cart = await Cart.findOne({ userId });
 

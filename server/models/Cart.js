@@ -10,6 +10,9 @@ const CartSchema = new mongoose.Schema({
             type: String,
         },
         name: String,
+        boughtBy: [String],
+        brand: [String],
+        subCategory: [String],
     }]
         
 });
