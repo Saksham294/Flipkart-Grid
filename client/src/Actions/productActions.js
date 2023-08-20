@@ -63,15 +63,7 @@ export const getRecommendedProduct=(productid)=>async(dispatch)=>{
   }
 
 }
-
-
-
-
-
-
-
-
-  
+ 
 export const purchaseProduct=(id)=>async(dispatch)=>{
   try {
   
@@ -140,7 +132,6 @@ export const removeItemFromCart = (id, productId) => async (dispatch) => {
   }
 };
 
-
 export const getCartItems=(id)=>async(dispatch)=>{
   try {
   
@@ -162,4 +153,26 @@ export const getCartItems=(id)=>async(dispatch)=>{
         payload: error.response.data.message,
     })
 }
+
+}
+
+export const getTopRated=()=>async(dispatch)=>{
+  try {
+  
+    dispatch({
+        type:"getTopRatedProductRequest"
+    })
+
+    const {data}=await axios.get(`/api/topRated`)
+    dispatch({
+        type:"getTopRatedProductSuccess",
+        payload:data.products,
+    })
+    
+} catch (error) {
+
+    dispatch({
+        type:"getTopRatedProductFailure",
+        payload: error.response.data.message,
+    })}
 }

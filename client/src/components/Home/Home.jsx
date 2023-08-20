@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material'
 import axios from 'axios'
-import { getRecommendedProduct } from '../../Actions/productActions'
+import { getRecommendedProduct, getTopRated } from '../../Actions/productActions'
 import React,{useEffect} from 'react'
 import {useSelector,useDispatch} from 'react-redux'
 import './Home.css'
@@ -16,6 +16,13 @@ const Home = () => {
     let { loading, products } = useSelector(state => state.products)
     const { user } = useSelector(state => state.user);
     const { products: allproduct } = useSelector((state) => state.products);
+    const {topRated} = useSelector((state) => state.topRated);
+    let topRatedProducts = [];
+    if (topRated) {
+        topRated.forEach((el) => {
+            topRatedProducts.push(el);
+        })
+    }
     let sub_cat = [];
     let brand = [];
     let item_id = [];
@@ -64,7 +71,6 @@ const Home = () => {
         }
         const idsInDoubleQuotes = user_visisted_items.map(id => `"${id}"`);
         const visited = `[${idsInDoubleQuotes.join(',')}]`;
-        console.log(user_visisted_items);
 
         try {
             result = await axios.post("http://127.0.0.1:8000/predict1", {
@@ -80,8 +86,9 @@ const Home = () => {
     }
 
     useEffect(() => {
-        trainModel()
-        predict()
+        // trainModel()
+        // predict()
+      dispatch(getTopRated())
     },[dispatch])
     return (
         <div className='insideHome'>
@@ -141,7 +148,20 @@ const Home = () => {
                     </Link>
                 </div>
             </section>
+                <section className='topProducts'> 
+                <Typography variant='h3'>Top Rated Products</Typography>
+                {topRatedProducts && topRatedProducts.map((el) => (
+                <ProductCard
+                    heading={el.name}
+                    key={el._id}
+                    img={el.image.url}
+                    subheading={el.description}
+                    price={el.price}
+                    url={el._id}
+                    />)
+                )}
 
+                </section>
             <section className='homeDecor'>
                 <Typography variant='h3'>Furniture at Lowest Prices</Typography>
                 <div className='homeandFurniture'>

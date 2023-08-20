@@ -42,7 +42,7 @@ const ProductCard = ({ heading, subheading, img, url, price, inCart }) => {
                     </div>
                 </a>
 
-                {inCart ? null : <IconButton onClick={handleAddToCart} sx={{ fontSize: "small", marginLeft: "15vw", color: "#08d4a4" }}><AddShoppingCartIcon /></IconButton>}
+                {inCart ? null : <IconButton onClick={handleAddToCart} sx={{ fontSize: "small", marginLeft: "18vw", color: "#08d4a4" }}><AddShoppingCartIcon /></IconButton>}
                 {inCart ? <IconButton onClick={handleRemoveFromCart} sx={{ fontSize: "small", marginLeft: "15vw", color: "red" }}><DeleteIcon /></IconButton> : null}
             </div>
 

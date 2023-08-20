@@ -58,3 +58,20 @@ export const recommendationReducer=createReducer(initialState,{
         state.error = action.payload;
     }
 })
+
+export const topRatedReducer=createReducer(initialState,{
+    getTopRatedProductRequest: (state, action) => {
+        state.loading = true;
+    }
+    ,
+    getTopRatedProductSuccess: (state, action) => {
+        state.loading=false;
+        state.topRated=action.payload;
+    }
+    ,
+    getTopRatedProductFailure: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    }
+
+})

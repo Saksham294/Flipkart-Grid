@@ -130,9 +130,6 @@ exports.incrementVisitCount=async(req, res) => {
     }
 };
 
-
-
-
 exports.purchaseProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
@@ -160,5 +157,22 @@ exports.purchaseProduct = async (req, res) => {
             success: false,
             message: error.message,
         });
+    }
+}
+
+exports.getHighRatedProducts = async (req, res) => {
+    try {
+        const products = await Product.find({}).sort({ rating: -1 }).limit(4)
+
+        res.status(200).json({
+            success: true,
+            products
+        })
+        
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
     }
 }

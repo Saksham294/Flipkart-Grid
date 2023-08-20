@@ -36,7 +36,7 @@ exports.add_cart_item = async (req, res) => {
         let boughtBy = [];
         let brand = [];
         let subCategory = [];
-
+        const image=item.image;
         if (item.boughtBy!=undefined) {
             boughtBy = item.boughtBy;
         }
@@ -57,7 +57,7 @@ exports.add_cart_item = async (req, res) => {
                 let productItem = cart.items[itemIndex];
                 cart.items[itemIndex] = productItem;
             } else {
-                cart.items.push({ productId, name, boughtBy, brand, subCategory  });
+                cart.items.push({ productId, name,image, boughtBy, brand, subCategory  });
             }
             cart = await cart.save();
             return res.status(200).json({

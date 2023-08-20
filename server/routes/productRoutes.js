@@ -1,4 +1,4 @@
-const {postProduct,getAllProducts,getProductById,purchaseProduct, incrementVisitCount } = require("../controllers/productController")
+const {postProduct,getAllProducts,getProductById,purchaseProduct, incrementVisitCount, getHighRatedProducts } = require("../controllers/productController")
 const express = require("express")
 const router = express.Router();
 const isAuthenticated = require("../middleware/auth")
@@ -9,6 +9,7 @@ router.get("/getAllProducts",getAllProducts)
 router.get("/product/:id",getProductById);
 router.route("/product/buy/:id").get(isAuthenticated,purchaseProduct)
 router.post("/product/:id",incrementVisitCount);
+router.get("/topRated",getHighRatedProducts)
 
 
 

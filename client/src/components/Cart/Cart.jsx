@@ -82,6 +82,7 @@ const Cart = (inCart) => {
                 <div className='cartItems'>
                     <ProductCard
                         heading={item.name}
+                        img={item.image.url}
                         url={item.productId}
                         inCart={true}
                     />
