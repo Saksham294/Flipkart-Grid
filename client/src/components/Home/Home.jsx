@@ -32,26 +32,18 @@ const Home = () => {
     const trainModel = async () => {
         if (allproduct) {
             allproduct.forEach((el) => {
-                if (el.visitedBy.length >= 1) {
-                    el.visitedBy.forEach(element => {
-                        user_id.push(element);
-                        sub_cat.push(el.subCategory);
+                sub_cat.push(el.subCategory);
                         brand.push(el.brand);
                         item_id.push(el._id);
-                        visited_count.push(el.viewCount);
-                    });
-                }
+               
             })
-
-            visited_count = visited_count.map(number => number.toString());
+           
 
             try {
-                response = await axios.post("http://127.0.0.1:8000/train", {
+                response = await axios.post("http://127.0.0.1:8000/train3", {
                     "sub_cat": sub_cat,
                     "brand": brand,
                     "item_id": item_id,
-                    "visited_count": visited_count,
-                    "user_id": user_id,
                 });
                 console.log(response.data);
 
@@ -61,24 +53,22 @@ const Home = () => {
             }
         }
     }
-    let result = null;
-    let user_visisted_items = []
-    const predict = async () => {
-        if (user) {
-            user.visited_items.forEach((el) => {
-                user_visisted_items.push(el);
-            })
-        }
-        const idsInDoubleQuotes = user_visisted_items.map(id => `"${id}"`);
-        const visited = `[${idsInDoubleQuotes.join(',')}]`;
+    let lastVisited;
+    if(user){
+        lastVisited=user.visited_items[user.visited_items.length-1];
+    }
+    console.log(lastVisited)
 
+    let result = null;
+    const predict = async () => {
         try {
-            result = await axios.post("http://127.0.0.1:8000/predict1", {
-                "user_id": user._id
+            result=await axios.post("http://127.0.0.1:8000/predict3", {
+                "product_id":lastVisited
             });
-            console.log(result.data);
-            if (result.data && result.data.recommended_items) {
-                await dispatch(getRecommendedProduct(result.data.recommended_items));
+
+            const arrayOfStrings = Object.values(result.data.recommended_items);            
+            if (result.data&&result.data.recommended_items) {
+                await dispatch(getRecommendedProduct(arrayOfStrings));
             }
         } catch (error) {
             console.error("Error:", error);
@@ -86,8 +76,8 @@ const Home = () => {
     }
 
     useEffect(() => {
-        // trainModel()
-        // predict()
+        trainModel()
+        predict()
       dispatch(getTopRated())
     },[dispatch])
     return (

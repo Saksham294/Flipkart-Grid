@@ -24,32 +24,26 @@ const AllProductsPage = () => {
     let sub_cat = [];
     let brand = [];
     let item_id = [];
-    let visited_count = [];
-    let user_id = [];
+
     let response = null;
     const trainModel = async () => {
         if (allproduct) {
             allproduct.forEach((el) => {
-                if (el.visitedBy.length >= 1) {
-                    el.visitedBy.forEach(element => {
-                        user_id.push(element);
-                        sub_cat.push(el.subCategory);
-                        brand.push(el.brand);
-                        item_id.push(el._id);
-                        visited_count.push(el.viewCount);
-                    });
+                sub_cat.push(el.subCategory);
+                brand.push(el.brand);
+                item_id.push(el._id);
+               
                 }
-            })
-
-            visited_count = visited_count.map(number => number.toString());
+            )
+console.log(sub_cat);
+            
 
             try {
-                response = await axios.post("http://127.0.0.1:8000/train", {
+                response = await axios.post("http://127.0.0.1:8000/train3", {
                     "sub_cat": sub_cat,
                     "brand": brand,
                     "item_id": item_id,
-                    "visited_count": visited_count,
-                    "user_id": user_id,
+                    
                 });
                 console.log(response.data);
 
@@ -73,7 +67,7 @@ const AllProductsPage = () => {
 
         try {
             result = await axios.post("http://127.0.0.1:8000/predict1", {
-                "user_id": "64d7c2fe97d963039d8efbb6"
+                "user_id": user._id
             });
             console.log(result.data);
             if (result.data && result.data.recommended_items) {
@@ -109,22 +103,7 @@ const AllProductsPage = () => {
                     ))}
                 </div>
             </div>
-            <div className='recommendedProducts'>
-                <Typography variant='h4'>You may also like</Typography>
-                <Button color='primary' onClick={trainModel}>Model Train</Button>
-                <Button onClick={predict} color='primary'>Predict</Button>
-
-                <h1>product</h1>
-
-                {product && product.map((el) => (
-
-                    <ProductCard
-                        heading={el.name}
-                        img={el.image.url}
-                        subheading={el.description}
-                        price={el.price}
-                        url={el._id} />))}
-            </div>
+           
         </div>
     ) : null
 }

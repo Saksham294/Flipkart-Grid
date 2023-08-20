@@ -18,13 +18,29 @@ const Cart = (inCart) => {
     useEffect(() => {
         dispatch(getCartItems(userId));
     }, [dispatch])
-   
+    let subcat = [];
+    let brand = [];
+    let user_id = [];
+    let item_id = [];
+    if (products) {
+        products.forEach((el) => {
+            for (let i = 0; i < el.boughtBy.length; i++) {
+                subcat.push(el.subCategory);
+                // console.log(el);
+                brand.push(el.brand);
+                user_id.push(el.boughtBy[i]);
+                item_id.push(el._id);
+            }
+        })
+    }
+    console.log(brand);
+
     const submitHandler = async () => {
         try {
             response = await axios.post("http://127.0.0.1:8000/postdetail", {
                 "sub_cat": subcat,
                 "brand": brand,
-                "user_id": userid,
+                "user_id": user_id,
                 "item_id": item_id
             });
             console.log(response.data);
@@ -34,21 +50,7 @@ const Cart = (inCart) => {
         }
     }
 
-    let subcat = [];
-    let brand = [];
-    let userid = [];
-    let item_id = [];
-    if (products) {
-        products.forEach((el) => {
-            for (let i = 0; i < el.boughtBy.length; i++) {
-                subcat.push(el.subCategory);
-                // console.log(el);
-                brand.push(el.brand);
-                userid.push(el.boughtBy[i]);
-                item_id.push(el._id);
-            }
-        })
-    }
+    
 
     const { cart } = useSelector(state => state.cart)
     let cartItems = [];
@@ -59,7 +61,7 @@ const Cart = (inCart) => {
     const predict = async () => {
         try {
             const result = await axios.post("http://127.0.0.1:8000/predict", {
-                user_id: user._id,
+                user_id:user._id,
             });
             console.log(result.data);
             if (result.data && result.data.recommendation) {

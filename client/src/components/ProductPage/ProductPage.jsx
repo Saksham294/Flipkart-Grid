@@ -5,17 +5,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { getProduct,purchaseProduct } from '../../Actions/productActions'
+import { lastVisitedProduct } from '../../Actions/userActions'
 import Star from '../Star/Star'
 
 const ProductPage = ({ productId, price, description, rating,image }) => {
     const { id } = useParams()
-    console.log(id)
+
     const dispatch = useDispatch()
     const { product, loading } = useSelector(state => state.products)
-    console.log(product)
+const {user} = useSelector(state => state.user);
+let userId;
+if(user){
+userId=user._id;
+}
     useEffect(() => {
         dispatch(getProduct(id))
-    }, [])
+        dispatch(lastVisitedProduct(id,userId))
+    }, [dispatch])
     
     const buyHandler = () => {
         dispatch(purchaseProduct(id))

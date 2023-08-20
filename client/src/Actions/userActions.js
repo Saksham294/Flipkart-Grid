@@ -94,3 +94,27 @@ export const logoutUser = () => async (dispatch) => {
     }
   };
 
+  export const lastVisitedProduct = (id,userId) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "lastVisitedProductRequest",
+      });
+  
+      const {data}=await axios.post(`/api/product/${id}`,{
+        userId
+      })
+      console.log(data);
+  
+      dispatch({
+        type:"lastVisitedProductSuccess",
+        payload:id,
+      });
+
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: "lastVisitedProductFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };

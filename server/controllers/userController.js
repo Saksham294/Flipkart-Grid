@@ -1,5 +1,6 @@
 const User = require("../models/User")
 const cloudinary = require("cloudinary")
+const Product=require("../models/Product")
 
 exports.registerUser = async (req, res) => {
   try {
@@ -118,3 +119,19 @@ exports.getMyProfile = async (req, res) => {
     });
   }
 }
+
+exports.lastVisitedProduct = async (req, res) => {
+  try {
+    
+    res.status(200).json({
+      success: true,
+      message: "Product updated successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

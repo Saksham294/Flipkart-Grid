@@ -5,7 +5,7 @@ var cors=require('cors');
 const dotenv=require("dotenv")
 const cloudinary=require("cloudinary")
 
-dotenv.config(path="./config.env");
+dotenv.config();
 
 app.use(cors());
 

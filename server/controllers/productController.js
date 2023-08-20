@@ -64,6 +64,28 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
+        
+        res.status(200).json({
+            success: true,
+            product
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+exports.last=async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id)
+        // set last visited product by user
+        const user=await User.findById(req.user._id)
+        console.log(user)
+       // Add to set to ensure no duplicates
+
+
         res.status(200).json({
             success: true,
             product
@@ -101,14 +123,21 @@ exports.incrementVisitCount=async(req, res) => {
             // Increment visitCount by 1
             { new: true } // Return the updated product
         );
+        const user = await User.findById(userId);
+
+        // Find the index of the productId in the array
+        const index = user.visited_items.indexOf(productId);
+        
+        if (index !== -1) {
+          // If the productId exists in the array, remove it
+          user.visited_items.pull(productId);
+        }
+        
+        // Add the productId to the end of the array
+        user.visited_items.push(productId);
 
 
-
-        await User.findByIdAndUpdate(
-            userId,
-            { $addToSet:{visited_items:productId } }, // Add to set to ensure no duplicates
-            { new: true }
-        );
+        
 
         if (!product) {
             return res.status(404).json({

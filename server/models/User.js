@@ -28,10 +28,15 @@ const userSchema=new mongoose.Schema({
         type:String,
         required: [true, "Please enter a city"],
     },
+    lastVisitedProduct:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Product"
+    },
     itemsBought:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Product"
-    }]
+    }],
+  
 
 })
 
