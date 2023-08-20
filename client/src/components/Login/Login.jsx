@@ -46,7 +46,7 @@ function Login() {
     }
     const [login, setLogin] = useState(false)
     const notificationHandler = () => {
-        if (user.user != undefined) {
+        if (user != undefined) {
             setOpen(true)
         }
 

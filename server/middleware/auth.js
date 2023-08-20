@@ -14,7 +14,7 @@ dotenv.config()
       });
     }
 
-    const decoded = await jwt.verify(token, process.env.JWTKEY);
+    const decoded = await jwt.verify(token,"abcdefgh");
 
     req.user = await User.findById(decoded._id);
 

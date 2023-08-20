@@ -76,6 +76,81 @@ exports.getProductById = async (req, res) => {
         })
     }
 }
+ // Import your Product model
+
+exports.refresh=async(req,res)=>{
+const product=Product.find({});
+product.forEach((el)>{
+
+
+
+    
+})
+
+
+
+
+
+}
+
+
+
+
+exports.incrementVisitCount=async(req, res) => {
+    try {
+        const productId=req.params.id;
+        const userId=req.body.userId;
+        console.log('userId:',userId);
+        console.log('productId:',productId);
+
+        // Find the product by ID and update its visitCount
+          let product=await Product.findByIdAndUpdate(
+            productId,
+            { $inc: { viewCount: 1 } }, 
+            
+            
+            
+            // Increment visitCount by 1
+            { new: true } // Return the updated product
+        );
+        
+       product=await Product.findByIdAndUpdate(
+            productId,
+            {$addToSet:{visitedBy:userId}},
+            // Increment visitCount by 1
+            { new: true } // Return the updated product
+        );
+
+
+
+        await User.findByIdAndUpdate(
+            userId,
+            { $addToSet:{visited_items:productId } }, // Add to set to ensure no duplicates
+            { new: true }
+        );
+
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: 'Product not found'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            product
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+};
+
+
+
 
 exports.purchaseProduct = async (req, res) => {
     try {

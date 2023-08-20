@@ -98,13 +98,6 @@ const MenuBar = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Link to='/myPurchases'>
-          <MenuItem>
-          <ShoppingBagIcon fontSize='small'></ShoppingBagIcon>
-            My Purchases
-          </MenuItem>
-        </Link>
-        <hr></hr>
         <MenuItem onClick={logoutHandler}>
           <ListItemIcon>
             <Logout fontSize="small" />

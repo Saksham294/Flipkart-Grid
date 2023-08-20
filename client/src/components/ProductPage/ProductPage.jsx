@@ -16,12 +16,12 @@ const ProductPage = ({ productId, price, description, rating,image }) => {
     useEffect(() => {
         dispatch(getProduct(id))
     }, [])
-
+    
     const buyHandler = () => {
         dispatch(purchaseProduct(id))
     }
 
-    return loading === undefined || loading === true ? null : (
+    return loading === undefined || loading === true || product === undefined ? null : (
      <>
         <div className='productPageBox'>
             <div className="productImages">
@@ -44,17 +44,6 @@ const ProductPage = ({ productId, price, description, rating,image }) => {
 
                 }}>Buy Now</Button>
             </div>
-            {
-                /**
-                 * 
-                 * Name
-                 * Price
-                 * Buy Now Button
-                 * Description
-                 * Rating
-                 * Rate yourself
-                 */
-            }
         </div>
         <div className="description">
             <Typography variant='h5'>Description</Typography>

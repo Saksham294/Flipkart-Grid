@@ -11,6 +11,10 @@ const userSchema=new mongoose.Schema({
         public_id: String,
         url: String,
       },
+      visited_items:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Product"
+    }], 
     email:{
         type:String,
         required: [true, "Please enter an email"],
@@ -40,7 +44,7 @@ userSchema.pre("save",async function(next){
   })
 
   userSchema.methods.getJWTToken=function(){
-    return jwt.sign({_id:this._id},process.env.JWTKEY,
+    return jwt.sign({_id:this._id},"abcdefgh",
         {expiresIn:"5d"})
 }
 userSchema.methods.comparePassword=async function(enteredPassword){

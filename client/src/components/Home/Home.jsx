@@ -1,20 +1,88 @@
 import { Button, Typography } from '@mui/material'
-import React from 'react'
+import axios from 'axios'
+import { getRecommendedProduct } from '../../Actions/productActions'
+import React,{useEffect} from 'react'
+import {useSelector,useDispatch} from 'react-redux'
 import './Home.css'
+import ProductCard from '../ProductCard/ProductCard'
 import { Link } from 'react-router-dom'
+import images from './images.json'
 
 
 const Home = () => {
-    const imgUrl = "https://img.freepik.com/free-photo/two-young-girls-wearing-casual-shirts-posing-with-palms-together-smiling_176532-10501.jpg?w=1480&t=st=1692194621~exp=1692195221~hmac=28094848746b6ef524c22bac59d5a2f301af9ee2c137ae9d70042ffb027b7234"
-    const imgUrl2 = "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Z2FkZ2V0c3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
-    const imgUrl3 = "https://plus.unsplash.com/premium_photo-1690559307519-2ff130f363f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2lybCUyMHdpdGglMjBzdW5nbGFzc2VzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
-    const imgUrl4 = "https://images.unsplash.com/photo-1621072156002-e2fccdc0b176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGd1eSUyMGZhc2hpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60"
-    const imgUrl5 = "https://img.freepik.com/free-photo/surprised-happy-girl-pointing-left-recommend-product-advertisement-make-okay-gesture_176420-20191.jpg?size=626&ext=jpg&ga=GA1.2.1065906416.1691861692&semt=sph";
-    const imgUrl6 = "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9tZSUyMGFuZCUyMGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
-    const imgUrl7 = "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aG9tZSUyMGFuZCUyMGZ1cm5pdHVyZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60"
-    const imgUrl8 = "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGhvbWUlMjBhbmQlMjBmdXJuaXR1cmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60"
-    const imgUrl9 = "https://images.unsplash.com/photo-1519643381401-22c77e60520e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGhvbWUlMjBhbmQlMjBmdXJuaXR1cmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60"
-    const imgUrl10 = "https://images.unsplash.com/photo-1463797221720-6b07e6426c24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjAxfHxob21lJTIwYW5kJTIwZnVybml0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+    const { product } = useSelector((state) => state.recommended);
+    const dispatch = useDispatch()
+    let prods = [];
+    let { loading, products } = useSelector(state => state.products)
+    const { user } = useSelector(state => state.user);
+    const { products: allproduct } = useSelector((state) => state.products);
+    let sub_cat = [];
+    let brand = [];
+    let item_id = [];
+    let visited_count = [];
+    let user_id = [];
+    let response = null;
+    const trainModel = async () => {
+        if (allproduct) {
+            allproduct.forEach((el) => {
+                if (el.visitedBy.length >= 1) {
+                    el.visitedBy.forEach(element => {
+                        user_id.push(element);
+                        sub_cat.push(el.subCategory);
+                        brand.push(el.brand);
+                        item_id.push(el._id);
+                        visited_count.push(el.viewCount);
+                    });
+                }
+            })
+
+            visited_count = visited_count.map(number => number.toString());
+
+            try {
+                response = await axios.post("http://127.0.0.1:8000/train", {
+                    "sub_cat": sub_cat,
+                    "brand": brand,
+                    "item_id": item_id,
+                    "visited_count": visited_count,
+                    "user_id": user_id,
+                });
+                console.log(response.data);
+
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+    }
+    let result = null;
+    let user_visisted_items = []
+    const predict = async () => {
+        if (user) {
+            user.visited_items.forEach((el) => {
+                user_visisted_items.push(el);
+            })
+        }
+        const idsInDoubleQuotes = user_visisted_items.map(id => `"${id}"`);
+        const visited = `[${idsInDoubleQuotes.join(',')}]`;
+        console.log(user_visisted_items);
+
+        try {
+            result = await axios.post("http://127.0.0.1:8000/predict1", {
+                "user_id": user._id
+            });
+            console.log(result.data);
+            if (result.data && result.data.recommended_items) {
+                await dispatch(getRecommendedProduct(result.data.recommended_items));
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    useEffect(() => {
+        trainModel()
+        predict()
+    },[dispatch])
     return (
         <div className='insideHome'>
             <section className='homeSection'>
@@ -31,8 +99,9 @@ const Home = () => {
 
                 </div>
 
-                <img src={imgUrl} className='homeImg'></img>
+                <img src={images.imgUrl} className='homeImg'></img>
             </section>
+            
             <section className='homeSection2'>
                 <div className="overlay">
                     <Typography variant='h3'>Electronics at Best Prices</Typography>
@@ -45,9 +114,22 @@ const Home = () => {
                 </div>
 
             </section>
+            <section className='pastInteractions'>
+                <Typography variant='h3'>You may like</Typography>
+            {product && product.map((el) => (
+                <ProductCard
+                    heading={el.name}
+                    key={el._id}
+                    img={el.image.url}
+                    subheading={el.description}
+                    price={el.price}
+                    url={el._id}
+                    />
+                    ))}
+            </section>
             <section className='fashion'>
-                <img className='fashionGuyImg' src={imgUrl4} />
-                <img className='fashionImg' src={imgUrl3} />
+                <img className='fashionGuyImg' src={images.imgUrl4} />
+                <img className='fashionImg' src={images.imgUrl3} />
                 <div className="fashionHeadingandDesc">
                     <Typography variant='h2' className='fashionHeading'> Fashion just a touch away</Typography>
                     <Typography variant='h5'>Experience fashion at its most convenient. With a simple touch, explore a world of trendy possibilities on UrbanBazaar, bringing your style desires to life</Typography>
@@ -63,11 +145,11 @@ const Home = () => {
             <section className='homeDecor'>
                 <Typography variant='h3'>Furniture at Lowest Prices</Typography>
                 <div className='homeandFurniture'>
-                    <img src={imgUrl6} />
-                    <img src={imgUrl7} />
-                    <img src={imgUrl8} />
-                    <img src={imgUrl9} />
-                    <img src={imgUrl10} />
+                    <img src={images.imgUrl6} />
+                    <img src={images.imgUrl7} />
+                    <img src={images.imgUrl8} />
+                    <img src={images.imgUrl9} />
+                    <img src={images.imgUrl10} />
                     {
                         /**use product cards and not just images */
                     }

@@ -32,8 +32,15 @@ const productSchema=new mongoose.Schema({
         type:Number,
         default:0,
     },
+    viewCount:{
+type:Number,
+default:0},
+   boughtBy:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    }],
 
-    boughtBy:[{
+    visitedBy:["tapasvi",{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     }]

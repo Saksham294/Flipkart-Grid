@@ -38,6 +38,39 @@ export const getProduct=(id)=>async(dispatch)=>{
           })
     }
 }
+export const getRecommendedProduct=(productid)=>async(dispatch)=>{
+  try {
+      dispatch({
+          type:"getRecommendedProductRequest"
+      })
+  
+      const promises =productid.map(async (id) => {
+        const { data } = await axios.get(`/api/product/${id}`);
+        return data.product;
+      });
+      const recommendedProducts = await Promise.all(promises);
+      
+      dispatch({
+          type:"getRecommendedProductSuccess",
+          payload:recommendedProducts,
+      })
+      
+  } catch (error) {
+      dispatch({
+          type: "getRecommendedProductFailure",
+          payload: error.response.data.message
+        })
+  }
+
+}
+
+
+
+
+
+
+
+
   
 export const purchaseProduct=(id)=>async(dispatch)=>{
   try {

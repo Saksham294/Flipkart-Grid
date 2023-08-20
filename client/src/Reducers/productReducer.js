@@ -43,3 +43,18 @@ export const productOperationsReducer = createReducer(initialState, {
         state.error = action.payload;
       },
 })
+export const recommendationReducer=createReducer(initialState,{
+    getRecommendedProductRequest: (state, action) => {
+        state.loading = true;
+    }
+    ,
+    getRecommendedProductSuccess: (state, action) => {
+        state.loading=false;
+        state.product=action.payload;
+    }
+    ,
+    getRecommendedProductFailure: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    }
+})
