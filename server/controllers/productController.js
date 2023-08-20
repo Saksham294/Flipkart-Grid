@@ -76,25 +76,6 @@ exports.getProductById = async (req, res) => {
         })
     }
 }
- // Import your Product model
-
-exports.refresh=async(req,res)=>{
-const product=Product.find({});
-product.forEach((el)>{
-
-
-
-    
-})
-
-
-
-
-
-}
-
-
-
 
 exports.incrementVisitCount=async(req, res) => {
     try {

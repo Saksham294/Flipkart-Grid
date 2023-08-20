@@ -118,28 +118,3 @@ exports.getMyProfile = async (req, res) => {
     });
   }
 }
-
-// exports.getMyPurchases=async(req,res)=>{
-//   try {
-
-/** const user = await User.findById(req.user._id);
-    
-        const myPostedItems = [];
-    
-        for (let i = 0; i < user.postedItems.length; i++) {
-          const product = await Product.findById(user.postedItems[i]).populate(
-            "soldStatus"
-          );
-          myPostedItems.push(product);
-        }
-    
-        res.status(200).json({
-          success: true,
-          myPostedItems,
-        });
-      } catch (error) {
-        res.status(500).json({
-          success: false,
-          message: error.message,
-        });
-      } */

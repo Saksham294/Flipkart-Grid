@@ -2,53 +2,38 @@ import React from 'react'
 import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import { AiOutlineStar } from 'react-icons/ai'
 import styled from "styled-components";
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import './Star.css'
 
 const Star = ({ stars }) => {
 
-  const ratingStar=  Array.from({ length: 5 }, (elem, index) => {
+  const { id } = useParams();
+  const { product, loading } = useSelector(state => state.products);
 
-        let number = index + 0.5;
-        return (
-            <span key={index}>
-                {
-                    stars >= index + 1 ? (<FaStar className='icon' />)
-                    : stars >= number ? (<FaStarHalfAlt classname='icon' />)
-                    : (<AiOutlineStar classname='icon' />)
-                }
-            </span>
-        )
+  const MAX_RATING = 5;
 
-    })
-    return (
-        <Wrapper>
-            <div className="icon-style">
-                {ratingStar}
-            </div>
-        </Wrapper>
-    )
+  let productRating = product.rating;
+
+
+  const filledStars = Array.from({ length: Math.floor(productRating) }, (_, index) => (
+    <span key={index} className="star filled-star">&#9733;</span>
+  ));
+
+
+  const remainingStars = MAX_RATING - filledStars.length;
+
+
+  const unfilledStars = Array.from({ length: remainingStars }, (_, index) => (
+    <span key={index} className="star unfilled-star">&#9734;</span>
+  ));
+  return (
+    <div className="starsContainer">
+      {filledStars}
+      {unfilledStars}
+    </div>
+  )
 }
-const Wrapper = styled.section`
-  .icon-style {
-    display: flex;
-    gap: 0.2rem;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left:21.8vw;
 
-    .icon {
-      font-size: 1rem;
-      color: #FFBF00;
-    }
-
-    .empty-icon {
-      font-size: 1.5rem;
-      color:black
-    }
-    p {
-      margin: 0;
-      padding-left: 1.2rem;
-    }
-  }
-`;
 
 export default Star

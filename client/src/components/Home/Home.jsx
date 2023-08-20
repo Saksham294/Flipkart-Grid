@@ -150,9 +150,7 @@ const Home = () => {
                     <img src={images.imgUrl8} />
                     <img src={images.imgUrl9} />
                     <img src={images.imgUrl10} />
-                    {
-                        /**use product cards and not just images */
-                    }
+
                 </div>
             </section>
         </div>

@@ -74,6 +74,7 @@ const Cart = (inCart) => {
         predict();
     }, [dispatch])
 
+
     return (
         <div className='cartContainer'>
             <Typography variant='h2'>Your Cart</Typography>
@@ -81,7 +82,6 @@ const Cart = (inCart) => {
                 <div className='cartItems'>
                     <ProductCard
                         heading={item.name}
-                        img={item.image.url}
                         url={item.productId}
                         inCart={true}
                     />

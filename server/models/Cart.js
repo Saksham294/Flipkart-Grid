@@ -10,6 +10,10 @@ const CartSchema = new mongoose.Schema({
             type: String,
         },
         name: String,
+        image: {
+            public_id: String,
+            url: String,
+        },
         boughtBy: [String],
         brand: [String],
         subCategory: [String],

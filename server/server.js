@@ -12,13 +12,13 @@ app.use(cors());
 app.use(express.json())
 
 cloudinary.config({
-    cloud_name:"dnbqfa0qf",
-  api_key:"736543861472486",
-  api_secret:"XKynZMZVXC0n72GTENSG5h8_5B4",
+    cloud_name:process.env.CLOUD_NAME,
+  api_key:process.env.API_KEY,
+  api_secret:process.env.API_SECRET,
 })
 
 mongoose.set('strictQuery', true);
-mongoose.connect("mongodb+srv://sakshamsingh5001:E4lapByjNeX6EUEW@cluster0.dplqkow.mongodb.net/",{
+mongoose.connect(process.env.MONGODB,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 
@@ -29,6 +29,6 @@ mongoose.connect("mongodb+srv://sakshamsingh5001:E4lapByjNeX6EUEW@cluster0.dplqk
 });
 
 
-app.listen(4000,()=>{
-    console.log(`Server started at port 4000`)
+app.listen(process.env.PORT,()=>{
+    console.log(`Server started at port ${process.env.PORT}`)
 })
